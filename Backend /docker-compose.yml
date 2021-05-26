@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    environment:
+      - SECRET_KEY=django-insecure-@sscu8n9wopfo52d6u*dm9)j)_8^hr7yj9))k5rco7mnv=w7fb'
+      - DEBUG= 0
+    volumes:
+      - .:/code
+
+    ports:
+      - 8000:8000
+
+    depends_on: 
+      - db
+  db:
+    image: postgres:11
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB= postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
