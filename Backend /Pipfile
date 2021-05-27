@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 django = "*"
 psycopg2-binary = "*"
+djangorestframework = "*"
+django-autoslug = "*"
+django-shortuuidfield = "*"
+django-unique-slugify = "*"
 
 [dev-packages]
 
