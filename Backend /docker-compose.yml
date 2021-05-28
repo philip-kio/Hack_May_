@@ -7,6 +7,9 @@ services:
     environment:
       - SECRET_KEY=django-insecure-@sscu8n9wopfo52d6u*dm9)j)_8^hr7yj9))k5rco7mnv=w7fb'
       - DEBUG= 0
+      - secret=dvEmYPTzi2ouTN6y10Uj-2oK
+      - key=key
+      - client_id=550281033435-a9h85o21dvtsj766f6qp1sb3dikmfkh8.apps.googleusercontent.com
     volumes:
       - .:/code
 

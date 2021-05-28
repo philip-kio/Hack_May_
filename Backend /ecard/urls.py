@@ -15,9 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
+
+
+
+
+
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+
+    # Local apps and Business logic 
     path('api/v1/', include('card.urls')),
-    path('api-auth/', include('rest_framework.urls'))
+
+    # User authentication and registration 
+    path('api/v1/rest-auth/', include('dj_rest_auth.urls')),
+    path('api/v1/rest-auth/', include('allauth.urls')),
+    path('api/v1/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('password/reset/', PasswordResetView.as_view(), name='reset_password_reset'),
+    path('api/v1/rest-auth/password/reset/confirm/<uidb64>/<token>',PasswordResetConfirmView.as_view(), name='password_reset_confirm')
 ]
+

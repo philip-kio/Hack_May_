@@ -10,6 +10,10 @@ djangorestframework = "*"
 django-autoslug = "*"
 django-shortuuidfield = "*"
 django-unique-slugify = "*"
+django-cors-headers = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

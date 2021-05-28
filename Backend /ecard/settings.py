@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -42,21 +43,40 @@ INSTALLED_APPS = [
 
     #local app
     'card.apps.CardConfig',
+    'user.apps.UserConfig',
 
     # 3rd party apps
     'rest_framework',
+    'corsheaders',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+    'allauth.socialaccount.providers.google',
 
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS =[
+    "htttps://localhost.8000",
+]
+
+
+
 
 ROOT_URLCONF = 'ecard.urls'
 
@@ -146,11 +166,51 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+   
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 REST_FRAMEWORK ={
     'DEFAULT_PERMISSION_CLASSES':[
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES':[
-    #     'rest'
-    # ]
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
+
+
+SITE_ID =1 
+
+REST_USE_JWT=True
+
+JWT_AUTH_COOKIE = 'Kard'
+
+
+SOCIALACCOUNT_PROVIDERS ={
+    'google':{
+        
+        'APP':{
+            'client_id': os.environ.get('client_id'),
+            'secret': os.environ.get('secret'),
+            'key':os.environ.get('key')
+        }
+
+    }
+}
+
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+# ACCOUNT_EMAIL_REQUIRED =True
+# ACCOUNT_EMAIL_VERIFICATION= 'mandatory'
+ACCOUNT_CONFIRM_ON_GET = True
+LOGIN_URL = 'http//:127.0.0.1:8000/api/v1/rest-auth/login/'
+LOGIN_REDIRECT_URL ='create'
+DEFAULT_FROM_EMAIL = 'kart@kards.com'
+# ACCOUNT_LOGOUT_REDIRECT =''
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
