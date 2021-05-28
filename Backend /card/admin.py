@@ -10,7 +10,7 @@ admin.site.index_title = 'E-Card API'
 
 
 class CardAdmin(admin.ModelAdmin):
-    list_display = (('uuid','slug','first_name','last_name','employment_title','company'))
+    list_display = (('user','uuid','slug','first_name','last_name','employment_title','company'))
     prepopulated_fields = {'slug': ('first_name',)}
 
 admin.site.register(CardDetail,CardAdmin)

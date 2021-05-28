@@ -4,8 +4,9 @@ from autoslug import AutoSlugField
 from shortuuidfield import ShortUUIDField
 from django_unique_slugify import unique_slugify
 import uuid
+from django.contrib.auth.models import User
 
-# Create your models here.
+
 
 
 class CardDetail(models.Model):
@@ -18,6 +19,8 @@ class CardDetail(models.Model):
     email = models.EmailField()
     brief_description = models.TextField()
     linkedIn = models.URLField()
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+
 
     def save(self,**kwargs):
         uuid_str = str(self.uuid)
