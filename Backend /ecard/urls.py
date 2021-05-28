@@ -16,9 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from dj_rest_auth.views import PasswordResetView, PasswordResetConfirmView
-
-
-
+from dj_rest_auth.registration.views import VerifyEmailView
 
 
 
@@ -35,6 +33,8 @@ urlpatterns = [
     # User authentication and registration 
     path('api/v1/rest-auth/', include('dj_rest_auth.urls')),
     path('api/v1/rest-auth/', include('allauth.urls')),
+    path('api/v1/rest-auth/google/', include('user.urls')),
+    path('api/v1/rest-auth/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     path('api/v1/rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('password/reset/', PasswordResetView.as_view(), name='reset_password_reset'),
